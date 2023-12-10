@@ -20,6 +20,7 @@ This project is to get data from 'Favoris' of immoffice account and display it i
 ## 🎮 Usage
 * Clone the repository
 * Open the terminal and redirect to the repository
-* run `streamlit run main.py`to run it locally  
+* Use `streamlit run main.py` in terminal to run it locally  
 Or
-* use `https://favourite-properties.streamlit.app/`to open the app
+* Use `https://favourite-properties.streamlit.app/`to open the app
+* Enter the user email, password and query api link to access the account
