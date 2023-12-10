@@ -76,4 +76,4 @@ elif app == 'Favourites':
 
 elif app == 'about':
     st.image('asset/pic1.jpg')
-    st.text('Thank you for your time')
+    st.subheader('Thank you for your time', style='text-align: right;')
