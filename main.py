@@ -73,6 +73,8 @@ elif app == 'Favourites':
         # Use st.session_state to access variables across reruns
         favorites = get_favorites(st.session_state.url, st.session_state.username, st.session_state.password)
         one_element(favorites)
+    else:
+        st.markdown('<div style="text-align: right; font-size: 40px;">Please enter the account details</div>', unsafe_allow_html=True)
 
 elif app == 'about':
     st.image('asset/pic1.jpg')
