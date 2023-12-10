@@ -74,7 +74,8 @@ elif app == 'Favourites':
         favorites = get_favorites(st.session_state.url, st.session_state.username, st.session_state.password)
         one_element(favorites)
     else:
-        st.markdown('<div style="text-align: right; font-size: 40px;">Please enter the account details</div>', unsafe_allow_html=True)
+        st.markdown('<div style="text-align: left; font-size: 30px;">Please enter the account details</div>', unsafe_allow_html=True)
+        st.image('asset/error.jpg')
 
 elif app == 'about':
     st.image('asset/pic1.jpg')
