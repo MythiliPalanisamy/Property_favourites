@@ -17,6 +17,7 @@ if 'username' not in st.session_state:
 if 'password' not in st.session_state:
     st.session_state.password = ""
 
+
 # Function to get favorites using st.cache with a custom cache key
 def get_favorites(url, username, password):
     response = requests.get(url, auth=(username, password))
@@ -51,7 +52,7 @@ st.title('Welcome')
 
 with st.sidebar:        
     app = option_menu(
-            menu_title='Favourite Properties',
+        menu_title='Saved Properties',
             options=['Account','Home','Favourites', 'about'],)
     
 if app == 'Account':
@@ -60,7 +61,7 @@ if app == 'Account':
         st.session_state.username = st.text_input('Enter email:')
         st.session_state.password = st.text_input('Enter password:', type='password')
         st.session_state.submitted = st.form_submit_button()
-        
+
 elif app == 'Home':
     st.image('asset/pic.jpg')
     st.markdown(f'##### Discover more about the selected properties here!')
