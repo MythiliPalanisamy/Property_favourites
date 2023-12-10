@@ -48,7 +48,7 @@ def one_element(favorites):
 st.set_page_config(
     page_title="Property Favorites",
     page_icon="🌐",)
-st.title('Welcome')
+
 
 with st.sidebar:        
     app = option_menu(
@@ -56,6 +56,8 @@ with st.sidebar:
             options=['Account','Home','Favourites', 'about'],)
     
 if app == 'Account':
+    st.title('Welcome')
+    st.text('Please enter the details')
     with st.form(key='my_form'):
         st.session_state.url = st.text_input('Enter API URL:')
         st.session_state.username = st.text_input('Enter email:')
@@ -74,3 +76,4 @@ elif app == 'Favourites':
 
 elif app == 'about':
     st.image('asset/pic1.jpg')
+    st.text('Thank you for your time')
