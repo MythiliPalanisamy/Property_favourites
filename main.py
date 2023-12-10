@@ -76,6 +76,7 @@ elif app == 'Favourites':
 
 elif app == 'about':
     st.image('asset/pic1.jpg')
-    st.markdown('<div style="text-align: right;">Thank you for your time</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: right; font-size: 20px;">Thank you for your time</div>', unsafe_allow_html=True)
+
 
    
