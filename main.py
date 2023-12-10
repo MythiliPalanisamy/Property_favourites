@@ -52,24 +52,24 @@ st.title('Welcome')
 with st.sidebar:        
     app = option_menu(
             menu_title='Favourite Properties',
-            options=['Home', 'Account', 'Favourites', 'about'],)
-
-if app == 'Home':
-    st.image('asset/pic.jpg')
-    st.markdown(f'##### Discover more about the selected properties here!')
-
-elif app == 'Account':
+            options=['Account','Home','Favourites', 'about'],)
+    
+if app == 'Account':
     with st.form(key='my_form'):
         st.session_state.url = st.text_input('Enter API URL:')
         st.session_state.username = st.text_input('Enter email:')
         st.session_state.password = st.text_input('Enter password:', type='password')
         st.session_state.submitted = st.form_submit_button()
-
-elif app == 'about':
-    st.image('asset/pic1.jpg')
+        
+elif app == 'Home':
+    st.image('asset/pic.jpg')
+    st.markdown(f'##### Discover more about the selected properties here!')
 
 elif app == 'Favourites':
     if st.session_state.submitted:
         # Use st.session_state to access variables across reruns
         favorites = get_favorites(st.session_state.url, st.session_state.username, st.session_state.password)
         one_element(favorites)
+
+elif app == 'about':
+    st.image('asset/pic1.jpg')
