@@ -1,15 +1,30 @@
 import json
 import requests
-import file as file
 import streamlit as st
+from streamlit_option_menu import option_menu
 import asset as asset
+import time
 
-def response_check(response):
+# Initialize session state variables
+if 'submitted' not in st.session_state:
+    st.session_state.submitted = False
+if 'favorites' not in st.session_state:
+    st.session_state.favorites = []
+if 'url' not in st.session_state:
+    st.session_state.url = ""
+if 'username' not in st.session_state:
+    st.session_state.username = ""
+if 'password' not in st.session_state:
+    st.session_state.password = ""
+
+# Function to get favorites using st.cache with a custom cache key
+def get_favorites(url, username, password):
+    response = requests.get(url, auth=(username, password))
     if response.status_code == 200:
-        favorites = response.json()
+        return response.json()
     else:
         st.header('No Service - Issue loading the page')
-    return favorites
+        return []
 
 def one_element(favorites):
     for favorite in favorites:
@@ -22,7 +37,6 @@ def one_element(favorites):
             st.subheader(favorite['title'])
             st.markdown(f'##### € {favorite["price"]}')
             st.markdown(f'<div style="margin-left: 250px;">{favorite["date"]}</div>', unsafe_allow_html=True)
-
             st.markdown(f'<div style="line-height: 1.2;">{favorite["full_address"]}</div>', unsafe_allow_html=True)
             st.text(favorite['province'])
   
@@ -32,26 +46,30 @@ def one_element(favorites):
 
 st.set_page_config(
     page_title="Property Favorites",
-    page_icon="🌐",
-    
-)
+    page_icon="🌐",)
+st.title('Welcome')
 
-with st.sidebar:
-    about = st.button('About')
-    fav = st.button('Favorites')
+with st.sidebar:        
+    app = option_menu(
+            menu_title='Favourite Properties',
+            options=['Home', 'Account', 'Favourites', 'about'],)
+
+if app == 'Home':
     st.image('asset/pic.jpg')
-
-if about:
-    st.image('asset/pic1.jpg')
     st.markdown(f'##### Discover more about the selected properties here!')
 
-elif fav:
-    url = file.query_api
-    response = requests.get(url, auth=(file.username, file.password))
+elif app == 'Account':
+    with st.form(key='my_form'):
+        st.session_state.url = st.text_input('Enter API URL:')
+        st.session_state.username = st.text_input('Enter email:')
+        st.session_state.password = st.text_input('Enter password:', type='password')
+        st.session_state.submitted = st.form_submit_button()
 
-    favorites = response_check(response)
-    one_element(favorites)
+elif app == 'about':
+    st.image('asset/pic1.jpg')
 
-
-
-
+elif app == 'Favourites':
+    if st.session_state.submitted:
+        # Use st.session_state to access variables across reruns
+        favorites = get_favorites(st.session_state.url, st.session_state.username, st.session_state.password)
+        one_element(favorites)
